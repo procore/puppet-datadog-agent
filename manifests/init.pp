@@ -163,6 +163,9 @@
 #   $apm_env
 #       String defining the environment for the APM traces
 #       String. Default: empty
+#   $process_agent_enabled
+#       Boolean to enable the process/container agent
+#       Boolean. Default: false
 #
 # Actions:
 #
@@ -258,6 +261,7 @@ class datadog_agent(
   $dd_group = $datadog_agent::params::dd_group,
   $apm_enabled = false,
   $apm_env = '',
+  $process_agent_enabled = false,
 ) inherits datadog_agent::params {
 
   # Allow ports to be passed as integers or strings.
@@ -333,6 +337,7 @@ class datadog_agent(
   validate_bool($apm_enabled)
   validate_bool($agent6_enable)
   validate_string($apm_env)
+  validate_bool($process_agent_enabled)
 
   if $hiera_tags {
     $local_tags = hiera_array('datadog_agent::tags', [])
