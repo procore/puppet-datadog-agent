@@ -116,6 +116,8 @@ Puppet::Reports.register_report(:datadog_reports) do
           @dog.emit_point("#{name}", value, :host => "#{@msg_host}")
         }
       }
+
+      @dog.emit_point("puppet.runs", 1, :type => "counter", :host => "#{@msg_host}")
     end
 
     Puppet.debug "Sending events for #{@msg_host} to Datadog"
